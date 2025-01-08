@@ -13,7 +13,7 @@
     {{ $page := dict
        "content" $content
        "kind" "page"
-       "path" (print "drinks/" .idDrink)
+       "path" .idDrink
        "params" $params
        "title" .strDrink
     }}
@@ -33,7 +33,7 @@
                {{ $resource := dict
                   "content" $content
                   "params" $params
-                  "path" (print "drinks/" $item.idDrink "/cover.jpg")
+                  "path" (print $item.idDrink "/cover.jpg")
                }}
                {{ $.AddResource $resource }}
             {{ end }}

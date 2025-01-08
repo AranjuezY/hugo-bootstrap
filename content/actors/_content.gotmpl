@@ -6,17 +6,16 @@
        "name" .name
        "age" .age
        "fee" .fee
-       "bio" .bio
        "schedule" .schedule
     }}
     {{ $content := dict
        "mediaType" "text/markdown"
-       "value" .strInstructions
+       "value" .bio
     }}
     {{ $page := dict
        "content" $content
        "kind" "page"
-       "path" (print "actors/" .name)
+       "path" .name
        "params" $params
        "title" .name
     }}

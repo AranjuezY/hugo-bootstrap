@@ -1,0 +1,35 @@
+{{ define "main" }}
+
+{{ $data := .Site.Data.actors.actors }}
+
+<div class="container mt-5" style="max-width: 1000px;">
+    <h2 class="text-center mb-4">Actors Schedule</h2>
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th style="width: 150px;">Name</th>
+                {{ range $day, $times := (index $data 0).schedule }}
+                <th style="width: 100px;">{{ $day }}</th>
+                {{ end }}
+            </tr>
+        </thead>
+        <tbody>
+            {{ range $data }}
+            <tr>
+                <td style="width: 150px;">{{ .name }}</td>
+                {{ range $day, $times := .schedule }}
+                <td style="width: 100px;">
+                    {{ if $times }}
+                    {{ delimit $times ", " }}
+                    {{ else }}
+                    ~
+                    {{ end }}
+                </td>
+                {{ end }}
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+</div>
+
+{{ end }}
