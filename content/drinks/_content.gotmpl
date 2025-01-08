@@ -1,0 +1,45 @@
+{{ $data := .Site.Data.drinks.drinks | jsonify | transform.Unmarshal }}
+
+{{ range $data }}
+
+    {{ $keywords := slice .strCategory .strGlass .strAlcoholic }}
+    {{ $params := dict
+       "keywords" $keywords
+    }}
+    {{ $content := dict
+       "mediaType" "text/markdown"
+       "value" .strInstructions
+    }}
+    {{ $page := dict
+       "content" $content
+       "kind" "page"
+       "path" (print "drinks/" .idDrink)
+       "params" $params
+       "title" .strDrink
+    }}
+    {{ $.AddPage $page }}
+
+    {{ $item := . }}
+    {{ with $url := $item.strDrinkThumb }}
+        {{ with resources.GetRemote $url }}
+            {{ with .Err }}
+                {{ errorf "Unable to get remote resource %s: %s" $url . }}
+            {{ else }}
+               {{ $content := dict
+                  "mediaType" .MediaType.Type
+                  "value" .
+               }}
+               {{ $params := dict "alt" $item.strDrink }}
+               {{ $resource := dict
+                  "content" $content
+                  "params" $params
+                  "path" (print "drinks/" $item.idDrink "/cover.jpg")
+               }}
+               {{ $.AddResource $resource }}
+            {{ end }}
+        {{ else }}
+            {{ errorf "Unable to get remote resource %s" $url }}
+        {{ end }}
+    {{ end }}
+
+{{ end }}

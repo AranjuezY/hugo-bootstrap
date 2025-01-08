@@ -21,3 +21,8 @@ Thumbs.db
 
 # Caddyfile
 Caddyfile
+
+# Tests
+/tests/
+/venv/
+report.html

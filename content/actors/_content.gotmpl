@@ -1,0 +1,25 @@
+{{ $data := .Site.Data.actors.actors | jsonify | transform.Unmarshal }}
+
+{{ range $data }}
+
+    {{ $params := dict
+       "name" .name
+       "age" .age
+       "fee" .fee
+       "bio" .bio
+       "schedule" .schedule
+    }}
+    {{ $content := dict
+       "mediaType" "text/markdown"
+       "value" .strInstructions
+    }}
+    {{ $page := dict
+       "content" $content
+       "kind" "page"
+       "path" (print "actors/" .name)
+       "params" $params
+       "title" .name
+    }}
+    {{ $.AddPage $page }}
+
+{{ end }}

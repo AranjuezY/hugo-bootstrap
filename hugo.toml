@@ -1,3 +1,25 @@
-baseURL = 'https://example.org/'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = 'Awesome Website'
+sectionPagesMenu = 'main'
+
+[taxonomies]
+  keyword = 'keywords'
+
+[module]
+  [[module.mounts]]
+    source = "node_modules/bootstrap/scss"
+    target = "assets/scss/bootstrap/"
+  [[module.mounts]]
+    source = "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+    target = "assets/js/bootstrap.bundle.min.js"
+
+  [[module.mounts]]
+    source = "node_modules/swiper/swiper-bundle.min.css"
+    target = "assets/scss/swiper-bundle.min.css"
+  [[module.mounts]]
+    source = "node_modules/swiper/swiper-bundle.min.js"
+    target = "assets/js/swiper-bundle.min.js"
+
+  [[module.mounts]]
+    source = "assets"
+    target = "assets"

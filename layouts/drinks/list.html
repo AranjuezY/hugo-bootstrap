@@ -1,0 +1,37 @@
+{{ define "main" }}
+<div class="container">
+    <div class="row">
+        {{ $paginator := .Paginate .Pages.ByTitle 4 }}
+        {{ range $paginator.Pages }}
+        <div class="col-md-3">
+            <div class="card border-0">
+                <a href="{{ .RelPermalink }}" class="text-decoration-none text-dark">
+                    <div class="card-body">
+                        {{ with .Resources.GetMatch "cover.*" }}
+                        <img src="{{ .RelPermalink }}" alt="{{ .Params.alt }}" class="card-img-top img-fluid" style="width: 250px; height: 350px; object-fit: cover;" />
+                    {{ end }}
+                        <h5 class="card-title">{{ .Title }}</h5>
+                    </div>
+                </a>
+            </div>
+        </div>
+        {{ end }}
+    </div>
+    <div class="row justify-content-center mt-4">
+        <div class="col-auto">
+            {{ template "partials/pagination.html" (dict "page" . "format" "terse") }}
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    .card {
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+</style>
+
+{{ end }}

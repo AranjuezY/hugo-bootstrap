@@ -1,0 +1,22 @@
+<div class="scrollable-list mb-4">
+    <ul class="list-group">
+        {{ range $index, $item := (seq 10) }}
+        <li class="list-group-item">Item {{ $item }}</li>
+        {{ end }}
+    </ul>
+</div>
+
+<style>
+    .scrollable-list {
+        max-height: 300px;
+        overflow-y: auto;
+        border: 1px solid #dee2e6;
+    }
+    .list-group-item {
+        border: none;
+        border-bottom: 1px solid #dee2e6;
+    }
+    .list-group-item:last-child {
+        border-bottom: none;
+    }
+</style>
