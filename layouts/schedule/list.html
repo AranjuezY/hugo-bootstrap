@@ -1,15 +1,53 @@
 {{ define "main" }}
+{{ $data := .Site.Data.cast_info.cast | jsonify | transform.Unmarshal }}
 
-{{ $data := .Site.Data.actors.actors }}
+<!-- Mobile view -->
+<div class="container mt-5 d-block d-md-none">
+    <h2 class="text-center mb-4">Schedule</h2>
+    <div class="accordion" id="scheduleAccordion">
+        {{ range $index, $person := $data }}
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading{{ $index }}">
+                <button class="accordion-button {{ if ne $index 0 }}collapsed{{ end }}" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapse{{ $index }}"
+                        aria-expanded="{{ if eq $index 0 }}true{{ else }}false{{ end }}"
+                        aria-controls="collapse{{ $index }}">
+                    {{ $person.name }}
+                </button>
+            </h2>
+            <div id="collapse{{ $index }}" class="accordion-collapse collapse {{ if eq $index 0 }}show{{ end }}"
+                 aria-labelledby="heading{{ $index }}" data-bs-parent="#scheduleAccordion">
+                <div class="accordion-body p-2">
+                    {{ range .schedule }}
+                    <div class="card mb-2">
+                        <div class="card-body py-2 px-3 d-flex justify-content-between align-items-center">
+                            <span class="fw-bold">{{ .date }}</span>
+                            <span>
+                                {{ if .time }}
+                                {{ index .time 0 }}-{{ index .time 1 }}
+                                {{ else }}
+                                ~
+                                {{ end }}
+                            </span>
+                        </div>
+                    </div>
+                    {{ end }}
+                </div>
+            </div>
+        </div>
+        {{ end }}
+    </div>
+</div>
 
-<div class="container mt-5" style="max-width: 1000px;">
-    <h2 class="text-center mb-4">Actors Schedule</h2>
+<!-- Desktop view -->
+<div class="container mt-5 d-none d-md-block" style="max-width: 1000px;">
+    <h2 class="text-center mb-4">Schedule</h2>
     <table class="table table-bordered table-striped table-hover">
         <thead class="thead-dark">
             <tr>
                 <th style="width: 150px;">Name</th>
-                {{ range $day, $times := (index $data 0).schedule }}
-                <th style="width: 100px;">{{ $day }}</th>
+                {{ range (index $data 0).schedule }}
+                <th style="width: 100px;">{{ .date }}</th>
                 {{ end }}
             </tr>
         </thead>
@@ -17,10 +55,10 @@
             {{ range $data }}
             <tr>
                 <td style="width: 150px;">{{ .name }}</td>
-                {{ range $day, $times := .schedule }}
+                {{ range .schedule }}
                 <td style="width: 100px;">
-                    {{ if $times }}
-                    {{ delimit $times ", " }}
+                    {{ if .time }}
+                    {{ index .time 0 }}-{{ index .time 1 }}
                     {{ else }}
                     ~
                     {{ end }}
@@ -31,5 +69,4 @@
         </tbody>
     </table>
 </div>
-
 {{ end }}

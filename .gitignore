@@ -25,3 +25,4 @@ Caddyfile
 /tests/
 /venv/
 report.html
+/scraper/

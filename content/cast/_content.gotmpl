@@ -1,0 +1,43 @@
+{{ $data := .Site.Data.cast_info.cast | jsonify | transform.Unmarshal }}
+
+{{ range $data }}
+
+    {{ $params := dict
+       "name" .name
+       "age" .age
+       "height" .height
+       "bust" .bust
+       "waist" .waist
+       "hip" .hip
+    }}
+    {{ $page := dict
+       "kind" "page"
+       "path" .name
+       "params" $params
+       "title" .name
+    }}
+    {{ $.AddPage $page }}
+
+    {{ $item := . }}
+    {{ with $url := $item.img_url }}
+        {{ with resources.GetRemote $url }}
+            {{ with .Err }}
+                {{ errorf "Unable to get remote resource %s: %s" $url . }}
+            {{ else }}
+               {{ $content := dict
+                  "mediaType" .MediaType.Type
+                  "value" .
+               }}
+               {{ $params := dict "alt" $item.name }}
+               {{ $resource := dict
+                  "content" $content
+                  "path" (print $item.name "/cover.jpg")
+               }}
+               {{ $.AddResource $resource }}
+            {{ end }}
+        {{ else }}
+            {{ errorf "Unable to get remote resource %s" $url }}
+        {{ end }}
+    {{ end }}
+
+{{ end }}
