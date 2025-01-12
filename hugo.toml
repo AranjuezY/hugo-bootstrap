@@ -3,7 +3,7 @@ title = 'Awesome Website'
 sectionPagesMenu = 'main'
 
 [taxonomies]
-  keyword = 'keywords'
+  cat = 'cats'
 
 [module]
   [[module.mounts]]

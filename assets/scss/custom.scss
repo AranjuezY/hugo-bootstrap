@@ -1,0 +1,86 @@
+body {
+  font-family: 'Georgia', serif;
+}
+
+.swiper-topmodels {
+  position: relative;
+  height: 400px;
+  max-width: 100vw;
+  overflow: hidden;
+
+  .swiper-slide {
+    width: 250px;
+    height: auto;
+    margin-right: 20px;
+  }
+
+  .model-card {
+    border: none;
+    transition: transform 0.3s ease;
+  }
+
+  .model-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .model-image {
+    width: 250px;
+    height: 350px;
+    object-fit: cover;
+  }
+
+  .model-title {
+    margin-top: 10px;
+    font-size: 1.1rem;
+    color: #333;
+    text-decoration: none;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: #333;
+  }
+}
+
+.swiper-toplinks {
+  position: relative;
+  height: 400px;
+  max-width: 100vw;
+  overflow: hidden;
+
+  .swiper-slide {
+    width: 800px;
+    transition: transform 0.3s;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .mask-left,
+  .mask-right {
+    position: absolute;
+    top: 0;
+    width: calc((100% - 800px) / 2);
+    height: 100%;
+    background: rgba(240, 240, 240, 0.5);
+    z-index: 10;
+  }
+
+  .mask-left {
+    left: 0;
+  }
+
+  .mask-right {
+    right: 0;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    width: 5%;
+    color: grey;
+    z-index: 11;
+  }
+}

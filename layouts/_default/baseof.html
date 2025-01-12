@@ -1,38 +1,51 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="{{ .Description | default .Site.Params.description }}">
 
-        {{ $options := (dict "targetPath" "css/styles.css" "outputStyle" "compressed") }}
-        {{ $styles := resources.Get "scss/main.scss" }}
-        {{ $css := $styles | toCSS $options | minify | fingerprint }}
-        <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
-        <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ .Description | default .Site.Params.description }}">
 
-        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-        {{ $bootstrap := resources.Get "js/bootstrap.bundle.min.js" | fingerprint}}
-        <script src="{{ $bootstrap.Permalink }}" integrity="{{ $bootstrap.Data.Integrity }}" defer></script>
-    </head>
-    <body>
-        <header>
-            <div class="d-flex">
-                <div style="height: 100px;"> logo</div>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    {{ $options := (dict "targetPath" "css/styles.css" "outputStyle" "compressed") }}
+    {{ with $styles := resources.Get "scss/main.scss" | toCSS $options | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
+    {{ end }}
+    {{ with resources.Get "scss/custom.scss" | toCSS $options | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ .RelPermalink }}">
+    {{ end }}
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    {{ $bootstrap := resources.Get "js/bootstrap.bundle.min.js" | fingerprint}}
+    <script src="{{ $bootstrap.Permalink }}" integrity="{{ $bootstrap.Data.Integrity }}" defer></script>
+</head>
+
+<body>
+    <header>
+        {{ template "partials/menu.html" . }}
+    </header>
+
+    <main class="py-4">
+        {{ block "main" . }} {{ end }}
+    </main>
+
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; {{ now.Year }} {{ .Site.Title }}. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item"><a href="#" class="text-white text-decoration-none">Privacy Policy</a></li>
+                        <li class="list-inline-item"><a href="#" class="text-white text-decoration-none">Terms of Service</a></li>
+                    </ul>
+                </div>
             </div>
-            {{ template "partials/menu.html" . }}
-        </header>
+        </div>
+    </footer>
+</body>
 
-        <main>
-            {{ block "main" . }} {{ end }}
-        </main>
-
-        <footer class="bg-dark text-white mt-4">
-            <div class="container py-4">
-                <p class="text-center mb-0">&copy; {{ now.Year }} {{ .Site.Title }}. All rights reserved.</p>
-            </div>
-        </footer>
-    </body>
 </html>
