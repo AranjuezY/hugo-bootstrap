@@ -1,8 +1,7 @@
 {{ define "main" }}
 {{ $data := .Site.Data.cast_info.cast | jsonify | transform.Unmarshal }}
 
-<!-- Mobile view -->
-<div class="container mt-5 d-block d-md-none">
+<div class="container d-block d-md-none">
     <h2 class="text-center mb-4">Schedule</h2>
     <div class="accordion" id="scheduleAccordion">
         {{ range $index, $person := $data }}
@@ -39,8 +38,7 @@
     </div>
 </div>
 
-<!-- Desktop view -->
-<div class="container mt-5 d-none d-md-block" style="max-width: 1000px;">
+<div class="container d-none d-md-block" style="max-width: 1000px;">
     <h2 class="text-center mb-4">Schedule</h2>
     <table class="table table-bordered table-striped table-hover">
         <thead class="thead-dark">

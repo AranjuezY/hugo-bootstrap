@@ -1,11 +1,12 @@
 {{ define "main" }}
 
 <div class="container">
+    <h2 class="text-center">Cast</h2>
     <div class="row">
         {{ $paginator := .Paginate .Pages.ByTitle 4 }}
         {{ range $paginator.Pages }}
         <div class="col-md-3">
-            <div class="card border-0">
+            <div class="card border-0 d-flex align-items-center">
                 <a href="{{ .RelPermalink }}" class="text-decoration-none text-dark">
                     <div class="card-body">
                         {{ with .Resources.GetMatch "cover.*" }}
