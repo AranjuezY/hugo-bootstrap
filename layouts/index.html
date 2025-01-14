@@ -1,7 +1,98 @@
 {{ define "main" }}
 
-{{ template "partials/toplinks.html" . }}
+{{ partial "partials/toplinks.html" . }}
 
-{{ template "partials/topmodels.html" . }}
+<!-- Featured Models Section -->
+<section id="models" class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 mb-3">Featured Models</h2>
+            <p class="lead">Meet our top talent</p>
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {{ range first 6 (where .Site.RegularPages "Section" "cast") }}
+            <div class="col">
+                <div class="card h-100 shadow">
+                    {{ with .Resources.GetMatch "cover.*" }}
+                    <img src="{{ .RelPermalink }}" alt="{{ .Title }}" class="model-image">
+                    {{ end }}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ .Title }}</h5>
+                        <p class="card-text">{{ .Params.short_description }}</p>
+                        <a href="{{ .RelPermalink }}" class="btn btn-outline-primary">View Profile</a>
+                    </div>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 mb-3">Our Services</h2>
+            <p class="lead">Comprehensive modeling solutions</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="text-center p-4 bg-white shadow-sm rounded">
+                    <i class="bi bi-camera fs-1 text-primary mb-3"></i>
+                    <h3 class="h5 mb-3">Portfolio Development</h3>
+                    <p>Professional photo shoots and portfolio building for aspiring models.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center p-4 bg-white shadow-sm rounded">
+                    <i class="bi bi-globe fs-1 text-primary mb-3"></i>
+                    <h3 class="h5 mb-3">Global Representation</h3>
+                    <p>International exposure and opportunities with top agencies worldwide.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center p-4 bg-white shadow-sm rounded">
+                    <i class="bi bi-person-badge fs-1 text-primary mb-3"></i>
+                    <h3 class="h5 mb-3">Career Management</h3>
+                    <p>Personalized career guidance and contract negotiation services.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 mb-3">Get in Touch</h2>
+            <p class="lead">We'd love to hear from you</p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form class="needs-validation" novalidate>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="col-12">
+                            <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                        </div>
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Existing partials -->
+
+{{ partial "partials/topmodels.html" . }}
 
 {{ end }}

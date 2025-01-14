@@ -1,5 +1,56 @@
 body {
   font-family: 'Georgia', serif;
+  background: radial-gradient(circle at center, #fafafa, #eaeaea);
+}
+
+.model-image {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(0,0,0,0.4) 100%);
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  &:hover {
+    transform: scale(1.03);
+    
+    &::after {
+      opacity: 0.8;
+    }
+  }
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #8a6d3b, #6b4f2f);
+  border: none;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  }
+}
+
+.card {
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(0,0,0,0.05);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+  }
 }
 
 .swiper-toplinks {
@@ -85,4 +136,44 @@ body {
 .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.navbar {
+  background-color: #f8f9fa; 
+  padding: 1rem 0;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #343a40; 
+}
+
+.nav-link {
+  position: relative;
+  color: #343a40;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s ease;
+}
+
+@media (min-width: 992px) {
+  .nav-link:hover {
+    color: #8a6d3b; 
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #8a6d3b; 
+    transition: width 0.3s ease;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
 }
